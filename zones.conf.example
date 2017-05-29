@@ -1,0 +1,28 @@
+masters ns0 {
+	10.0.1.1;
+};
+
+masters ns1 {
+	10.0.0.1;
+};
+
+zone "example.com" IN {
+	type slave;
+	masters { ns0; ns1; };
+	notify no;
+	file "/etc/bind/slave/example.com";
+};
+
+zone "example.net" IN {
+	type slave;
+	masters { ns0; };
+	notify no;
+	file "/etc/bind/slave/example.net";
+};
+
+zone "example.org" IN {
+	type slave;
+	masters { 10.0.1.2; };
+	notify yes;
+	file "/etc/bind/slave/example.org";
+};
